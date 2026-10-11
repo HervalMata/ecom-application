@@ -1,5 +1,6 @@
-package com.herval.ecomapp;
+package com.herval.ecomapp.repository;
 
+import com.herval.ecomapp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
