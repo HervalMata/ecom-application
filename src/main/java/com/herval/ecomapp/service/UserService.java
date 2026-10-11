@@ -47,7 +47,7 @@ public class UserService {
         user.setEmail(userRequest.getEmail());
         user.setPhone(userRequest.getPhone());
         if (userRequest.getAddress() != null) {
-            Address address = new Address();
+            Address address = user.getAddress() != null ? user.getAddress() : new Address();
             address.setStreet(userRequest.getAddress().getStreet());
             address.setCity(userRequest.getAddress().getCity());
             address.setState(userRequest.getAddress().getState());

@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<String> createUser(@RequestBody UserRequest userRequest) {
         userService.addUser(userRequest);
-        return ResponseEntity.ok("Successfully created user");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Successfully created user");
     }
 
     @PutMapping("/{id}")
