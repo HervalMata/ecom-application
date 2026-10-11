@@ -37,17 +37,19 @@ public class CartService {
 
         CartItem existingCartItem = cartItemRepository.findByUserAndProduct(user, product);
         if (existingCartItem != null) {
-              existingCartItem.setQuantity(existingCartItem.getQuantity() + request.getQuantity());
+            int newQty = existingCartItem.getQuantity() + request.getQuantity();
+            if (product.getStockQuantity() < newQty) return false;
+            existingCartItem.setQuantity(newQty);
 
-              existingCartItem.setPrice(product.getPrice().multiply(BigDecimal.valueOf(existingCartItem.getQuantity())));
-              cartItemRepository.save(existingCartItem);
+            existingCartItem.setPrice(product.getPrice().multiply(BigDecimal.valueOf(existingCartItem.getQuantity())));
+            cartItemRepository.save(existingCartItem);
         } else {
-              CartItem cartItem = new CartItem();
-              cartItem.setUser(user);
-              cartItem.setProduct(product);
-              cartItem.setQuantity(request.getQuantity());
-              cartItem.setPrice(product.getPrice().multiply(BigDecimal.valueOf(request.getQuantity())));
-              cartItemRepository.save(cartItem);
+            CartItem cartItem = new CartItem();
+            cartItem.setUser(user);
+            cartItem.setProduct(product);
+            cartItem.setQuantity(request.getQuantity());
+            cartItem.setPrice(product.getPrice().multiply(BigDecimal.valueOf(request.getQuantity())));
+            cartItemRepository.save(cartItem);
         }
         return true;
     }

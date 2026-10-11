@@ -5,6 +5,7 @@ import com.herval.ecomapp.dto.OrderResponse;
 import com.herval.ecomapp.model.*;
 import com.herval.ecomapp.repository.OrderRepository;
 import com.herval.ecomapp.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class OrderService {
     private final CartService cartService;
     private final UserRepository userRepository;
@@ -44,7 +46,7 @@ public class OrderService {
                 null,
                 item.getProduct(),
                 item.getQuantity(),
-                item.getPrice(),
+                item.getProduct().getPrice(),
                 order
         )).toList();
 
